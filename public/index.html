@@ -4,30 +4,55 @@
         <meta charset="utf-8">
         <title>Minha primeira página</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="#serviços">SERVIÇOS</a></li>
-                <li>CLIENTES</li>
-                <li>PRODUTOS</li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="#">
+                <img src="img/bakary.png" width="70" height="70">
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                     <li class="nav-item">
+                        <a class="nav-link" href="#parceiros">Paceiros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#quem somos">Quem somos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Serviços</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
+        <section id="quem somos">
+            <div class="container-fluid quem-somos text-center margin">
+                <p>QUEM SOMOS</p>
+                <img src="img/team.png" class="rounded-pill" width="290px" height="175px">
+            </div>
+        </section>
+
+        <section id="parceiros">
+            <div class="container-fluid parceiros text-center margin">
+                <p>PARCEIROS</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="img/partner1.png" class="rounded-circle" width="200px" height="200px">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="img/partner3.png" class="rounded-circle" width="200px" height="200px">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="img/partner3.jpg" class="rounded-circle" width="200px" height="200px">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
         <header>
-            <h2>Home</h2>
-            <p>Página Inicial</p>
         </header>
-        <section id="serviços">
-            <h2>Serviços</h2>
-            <p>Oferecemos os melhores serviços</p>
-        </section>
-        <section id="clientes">
-            <h2>Clientes</h2>
-            <p>Clientes satisfeitos</p>
-        </section>
-        <div>
-            <img src="img/team.png" width="300px">
-        </div>
         <footer>
             <p>Página criada por Amanda</p>
         </footer>

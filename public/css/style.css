@@ -1,3 +1,18 @@
-body {
-    background: aquamarine;
+body{
+    font-family: fantasy;
+}
+.navbar{
+    background-color: rgba(255, 105, 180, 0.534);
+}
+.quem-somos{
+    background-color: rgba(76, 0, 130, 0.356);
+    color: white;
+}
+.margin{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.parceiros{
+    background-color: rgba(153, 50, 204, 0.384);
+    color: white;
 }
