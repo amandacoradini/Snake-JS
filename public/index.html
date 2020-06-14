@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
     </head>
-    <body>
+    <body onload="load()">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="#">
                 <img src="img/bakary.png" width="70" height="70">
@@ -51,11 +51,41 @@
                 </div>
             </div>
         </section>
+        <section id="botões">
+            <div class="container-fluid botoes text-center margin">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-md-2">
+                            <button type="button" onclick="botao()">Clique aqui</button>
+                            <p id="agradecimento" onclick="redirecionar()"></p>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" onclick="redirecionar()">Clique aqui</button>
+                        </div>
+                        <div class="col-md-2">
+                            <p id="passemouse" onmouseover="trocar(this)" onmouseout="voltar(this)">Passe o Mouse aqui</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p onmouseover="trocar(this)" onmouseout="voltar(this)">Passe o Mouse aqui</p>
+                        </div>
+                        <div class="col-md-2">
+                            <select onchange="funcaoChange(this)">
+                                <option value="1">Valor 1</option>
+                                <option value="2">Valor 2</option>
+                                <option value="3">Valor 3</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+             </div>
+        </section>
         <header>
         </header>
-        <footer>
+        <footer class="footer">
             <p>Página criada por Amanda</p>
         </footer>
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
 
 </html>

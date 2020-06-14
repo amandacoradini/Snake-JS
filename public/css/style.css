@@ -16,3 +16,9 @@ body{
     background-color: rgba(153, 50, 204, 0.384);
     color: white;
 }
+.footer{
+    padding-top: 6px;
+    padding-bottom: 3px;
+    background-color: yellowgreen;
+    color: white;
+}
