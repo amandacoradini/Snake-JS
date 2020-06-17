@@ -8,8 +8,11 @@ snake[0] = { //primeira posição da cobra
     y: 8*box
 };
 let jogo;
-let VetRgb = [255, 105, 180];
-let rgb = VetRgb.join(',');
+let rgb = 0;
+let VetRgb = [{colorCobra: '255,105,180', colorBack: '198,226,255', colorMarg: '141,182,205'},
+              {colorCobra: '127,255,212', colorBack: '131,111,255', colorMarg: '71,60,139'},
+              {colorCobra: '255,127,0', colorBack: '238,232,170 ', colorMarg: '255,165,0'}];
+
 let direction = 'right';
 let velocity = 300;
 //gera números aleatórios de posição para a comida
@@ -19,12 +22,12 @@ let food = {
 }
 //cria o background
 function criarBG(){
-    context.fillStyle = 'rgb(198, 226, 255)';
+    context.fillStyle = 'rgb('+VetRgb[rgb].colorBack+')';;
     context.fillRect(0, 0, 16*box, 16*box);//cria o retângulo 512x512
 }
 //Cria as margens
 function margin(xm, ym){
-    context.fillStyle = 'rgb(141, 182, 205)';
+    context.fillStyle = 'rgb('+VetRgb[rgb].colorMarg+')';;
     context.fillRect(xm, ym, box, box);
 }
 function drawMargin(){
@@ -46,17 +49,17 @@ function drawMargin(){
             ym+=32;
             xm=0;
         }
-}
+} 
 //cria a cobrinha
 function criarCobra(){
     for(i=0; i<snake.length; i++){
-        context.fillStyle = 'rgb('+rgb+')';
+        context.fillStyle = 'rgb('+VetRgb[rgb].colorCobra+')';
         context.fillRect(snake[i].x, snake[i].y, box, box); //o quadradinho tem tamanho 32px e foi inicializado no meio do canvas
     }
 }
 //cria a comida 
 function drawnFood(){
-    context.fillStyle = 'rgb(255, 182, 193)';
+    context.fillStyle = 'rgb(255,64,64)';
     context.fillRect(food.x, food.y, box, box);
 }
 
@@ -72,6 +75,7 @@ function update(event){
         jogo = setInterval(iniciarJogo, velocity); //a cada 100 milisegundos a função iniciarJogo vai ser renovada
     }
 }
+//Funções dos botões de iniciar e reiniciar
 function Start(){
     jogo = setInterval(iniciarJogo, velocity);
 }
@@ -81,6 +85,23 @@ function Reiniciar(){
     snake[0].x = 8*box;
     snake[0].y = 8*box;
 }
+//Função do botão mudar cores
+function MudarCor(){
+    if(rgb == 0){
+        rgb = 1;
+    }else{
+        if(rgb == 1){
+            rgb = 2;
+        }else{
+            rgb = 0;
+        }
+    }
+    criarBG();
+    drawMargin();
+    criarCobra();
+    drawnFood();
+}
+
 //verifica se saiu da margem
 function verifica(){
     clearInterval(jogo); //Para a função jogo
@@ -91,6 +112,7 @@ function verifica(){
 criarBG();
 drawMargin();
 criarCobra();
+drawnFood();
 
 //Função que fica atualizando o jogo
 function iniciarJogo(){
