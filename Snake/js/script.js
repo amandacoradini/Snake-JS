@@ -7,27 +7,56 @@ snake[0] = { //primeira posição da cobra
     x: 8*box,
     y: 8*box
 };
+let jogo;
+let VetRgb = [255, 105, 180];
+let rgb = VetRgb.join(',');
 let direction = 'right';
+let velocity = 300;
 //gera números aleatórios de posição para a comida
 let food = {
-    x: Math.floor(Math.random()* 15 + 1) * box, //floor tira  a parte flutuante do número random
-    y: Math.floor(Math.random()* 15 + 1) * box
+    x: Math.floor(Math.random()* 14 + 1) * box, //floor tira  a parte flutuante do número random
+    y: Math.floor(Math.random()* 14 + 1) * box
 }
 //cria o background
 function criarBG(){
-    context.fillStyle = 'pink';
+    context.fillStyle = 'rgb(198, 226, 255)';
     context.fillRect(0, 0, 16*box, 16*box);//cria o retângulo 512x512
+}
+//Cria as margens
+function margin(xm, ym){
+    context.fillStyle = 'rgb(141, 182, 205)';
+    context.fillRect(xm, ym, box, box);
+}
+function drawMargin(){
+        //margens horizontais
+        var xm=0, ym=0;
+        for(i=0; i < 16; i++){
+            margin(xm, ym);
+            ym=480;
+            margin(xm, ym);
+            xm+=32;
+            ym=0;
+        }
+        //margens verticais
+        xm=0, ym=0;
+        for(i=0; i < 16; i++){
+            margin(xm, ym);
+            xm+=480;
+            margin(xm, ym);
+            ym+=32;
+            xm=0;
+        }
 }
 //cria a cobrinha
 function criarCobra(){
     for(i=0; i<snake.length; i++){
-        context.fillStyle = 'lightgreen';
+        context.fillStyle = 'rgb('+rgb+')';
         context.fillRect(snake[i].x, snake[i].y, box, box); //o quadradinho tem tamanho 32px e foi inicializado no meio do canvas
     }
 }
 //cria a comida 
 function drawnFood(){
-    context.fillStyle = 'lightyellow';
+    context.fillStyle = 'rgb(255, 182, 193)';
     context.fillRect(food.x, food.y, box, box);
 }
 
@@ -38,15 +67,38 @@ function update(event){
     if(event.keyCode ==39 && direction!='left') direction = 'right';
     if(event.keyCode ==40 && direction!='up') direction = 'down';
     if(event.keyCode ==38 && direction!='down') direction = 'up';
+    if(event.keyCode ==33) {velocity -= 25; setInterval(iniciarJogo, velocity);}
+    if(event.keyCode ==13){
+        jogo = setInterval(iniciarJogo, velocity); //a cada 100 milisegundos a função iniciarJogo vai ser renovada
+    }
 }
+function Start(){
+    jogo = setInterval(iniciarJogo, velocity);
+}
+function Reiniciar(){
+    jogo = setInterval(iniciarJogo, velocity);
+    snake.splice(1);
+    snake[0].x = 8*box;
+    snake[0].y = 8*box;
+}
+//verifica se saiu da margem
+function verifica(){
+    clearInterval(jogo); //Para a função jogo
+    alert('GAME OVER');
+}
+
+//cria o cenário inicial
+criarBG();
+drawMargin();
+criarCobra();
 
 //Função que fica atualizando o jogo
 function iniciarJogo(){
-//assegura que a cobra não saia da tela
-    if(snake[0].x > 15*box && direction == 'right') snake[0].x = 0;
-    if(snake[0].x < 0 && direction == 'left') snake[0].x = 16*box;
-    if(snake[0].y > 15*box && direction == 'down') snake[0].y = 0;
-    if(snake[0].y < 0 && direction == 'up') snake[0].y = 16*box;
+//assegura que fique dentro da margem
+    if(snake[0].x == 15*box) {verifica();snake[0].x-=32;}
+    if(snake[0].x == 0) {verifica();snake[0].x+=32;}
+    if(snake[0].y == 15*box) {verifica();snake[0].y-=32;}
+    if(snake[0].y == 0) {verifica();snake[0].y+=32;}
 
     for(i=1; i < snake.length; i++){
         if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
@@ -54,8 +106,8 @@ function iniciarJogo(){
             alert('GAME OVER');
         }
     }
-
     criarBG();
+    drawMargin();
     criarCobra();
     drawnFood();
 //Posições iniciais da snake
@@ -70,8 +122,8 @@ function iniciarJogo(){
     if(snakeX != food.x || snakeY != food.y){
         snake.pop(); //retira o último elemento da fila para dar a impressão de movimento
     }else{
-        food.x = Math.floor(Math.random()* 15 + 1) * box;
-        food.y = Math.floor(Math.random()* 15 + 1) * box;
+        food.x = Math.floor(Math.random()* 14 + 1) * box;
+        food.y = Math.floor(Math.random()* 14 + 1) * box;
     }
 //Atribui a nova cabeça da cobra 
     let newHead = {
@@ -80,4 +132,3 @@ function iniciarJogo(){
     };
     snake.unshift(newHead); //add a nova cabeça ao array
 }
-let jogo = setInterval(iniciarJogo, 100); //a cada 100 milisegundos a função iniciarJogo vai ser renovada
