@@ -1,4 +1,6 @@
 let canvas = document.getElementById('snake');
+let score = '0';
+document.getElementById('Score').innerHTML = 'Score: '+score;
 let context = canvas.getContext('2d') //contem as infos de linhas, cores, e outros parâmetros gráficos definidos no canvas
 let box = 32; //tamanho do pixel dentro do canvas
 //a cobra vai ser um array
@@ -57,10 +59,16 @@ function criarCobra(){
         context.fillRect(snake[i].x, snake[i].y, box, box); //o quadradinho tem tamanho 32px e foi inicializado no meio do canvas
     }
 }
+function drawLine(x, y){
+    context.fillStyle = 'rgb(34,139,34)';
+    context.fillRect(x+13, y-11, box/6, box/3);
+}
 //cria a comida 
 function drawnFood(){
     context.fillStyle = 'rgb(255,64,64)';
     context.fillRect(food.x, food.y, box, box);
+    BG = 'rgb(0,100,0)';
+    drawLine(food.x, food.y, BG);
 }
 
 //Eventos do teclado
@@ -70,9 +78,9 @@ function update(event){
     if(event.keyCode ==39 && direction!='left') direction = 'right';
     if(event.keyCode ==40 && direction!='up') direction = 'down';
     if(event.keyCode ==38 && direction!='down') direction = 'up';
-    if(event.keyCode ==33) {velocity -= 25; setInterval(iniciarJogo, velocity);}
-    if(event.keyCode ==13){
-        jogo = setInterval(iniciarJogo, velocity); //a cada 100 milisegundos a função iniciarJogo vai ser renovada
+    if(event.keyCode ==33) {velocity -= 25; setInterval(iniciarJogo, velocity);} //tecla pgup aumenta a velocidade da cobrinha
+    if(event.keyCode ==13){ //tecla start inicia o game
+        jogo = setInterval(iniciarJogo, velocity);
     }
 }
 //Funções dos botões de iniciar e reiniciar
@@ -80,6 +88,7 @@ function Start(){
     jogo = setInterval(iniciarJogo, velocity);
 }
 function Reiniciar(){
+    document.getElementById('Score').innerHTML = 'Score: 0';
     jogo = setInterval(iniciarJogo, velocity);
     snake.splice(1);
     snake[0].x = 8*box;
@@ -105,7 +114,8 @@ function MudarCor(){
 //verifica se saiu da margem
 function verifica(){
     clearInterval(jogo); //Para a função jogo
-    alert('GAME OVER');
+    alert('GAME OVER ===> SCORE: '+score);
+
 }
 
 //cria o cenário inicial
@@ -140,12 +150,15 @@ function iniciarJogo(){
     if(direction == 'left') snakeX-=box;
     if(direction == 'up') snakeY-=box;
     if(direction == 'down') snakeY+=box;
+
 //condição de quando a cobrinha come ou não a comida
     if(snakeX != food.x || snakeY != food.y){
         snake.pop(); //retira o último elemento da fila para dar a impressão de movimento
     }else{
+        score++;
         food.x = Math.floor(Math.random()* 14 + 1) * box;
         food.y = Math.floor(Math.random()* 14 + 1) * box;
+        document.getElementById('Score').innerHTML = 'Score: '+score;
     }
 //Atribui a nova cabeça da cobra 
     let newHead = {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="widht=device-widht, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
     <script defer src="js/script.js"></script> <!--defer executa o js no final-->
     <title>Snake Game</title>
 </head>
@@ -12,9 +13,12 @@
     <h1>SNAKE GAME!</h1>
     <canvas id="snake" width="512" height="512"></canvas>
     <section>
-        <button type="button" onclick="Start()">INICIAR</button>
-        <button type="button" onclick="Reiniciar()">REINICIAR</button>
-        <button type="button" onclick="MudarCor()">COLOR</button>
+        <div class="botoes" style="margin-top: 10px; color: black;">
+            <button type="button"  onclick="Start()">INICIAR</button>
+            <button type="button"  onclick="Reiniciar()">REINICIAR</button>
+            <button type="button"  onclick="MudarCor()">COLOR</button>
+            <output id="Score"></output>
+        </div>
     </section>
 </body>
 </html>
